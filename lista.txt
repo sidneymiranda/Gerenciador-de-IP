@@ -1,1 +1,6 @@
 117.207.144.245   =>   Xiaomi Mi A2
+10.0.0.34   =>  iPhone
+128.41.96.21   =>   Motorolla
+20.252.245.115   =>   notebook
+40.28.154.246   =>   MacBook Pro
+101.243.203.153   =>   Lenovo Thinkpad

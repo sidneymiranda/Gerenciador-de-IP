@@ -1,8 +1,8 @@
 #!/bin/bash
 clear
 
-#read -p "Deseja continuar com o cadastro: [sim] [não] " resp
-resp='sim'
+read -p "Deseja continuar com o cadastro: [sim] [não] " resp
+
 while [ $resp = "sim" ];
 do
 
@@ -12,8 +12,8 @@ echo "---------------------------------------"
 echo
 echo "[ 1 ] - Cadastrar manualmente"
 echo "[ 2 ] - Gerar IP automático"
-echo "[ 3 ] - Remover IP cadastrado"
-echo "[ 4 ] - Exibir lista de endereços em uso"
+echo "[ 3 ] - Remover da lista"
+echo "[ 4 ] - Exibir lista de cadastrados"
 echo "[ 5 ] - Sair"
 echo
 
@@ -23,11 +23,11 @@ read -p "Escolha uma das opções:  " escolha
 case $escolha in
     1) read -p "Informe o endereço IP para cadastro: " ip_add
        if [ -e lista.txt ];then
-         if [ `$(cat lista.txt | grep $ip_add) != $ip_add` ]; then
+         if [ "$(cat lista.txt | grep $ip_add)" != "$ip_add" ]; then
          read -p "Informe o nome do dispositivo  para o IP $ip_add: " hostname
            echo "$ip_add   =>  $hostname" >> lista.txt
            echo "Aguarde ...."
-           sleep 2
+           sleep 3
            clear
            echo "Cadastrando ..."
            sleep 3
@@ -35,14 +35,11 @@ case $escolha in
            echo "Cadastro realizado com sucesso!"
 	   echo
            echo "$(cat lista.txt | grep $ip_add | cut -f1)"
+
+
          else
-	   clear
 	   echo "Aguarde ..."
            sleep 3
-	   clear
-	   echo "Verificando a disponibilidade  ..."
-	   sleep 3
-	   clear
            echo "O IP $ip_add já está em uso, tente novamente!"
          fi
         else
@@ -85,7 +82,7 @@ case $escolha in
              echo
              echo "$(cat lista.txt | grep $ip_aut | cut -f1)"
            else
-             echo "Este IP já está em uso"
+             echo "Tente gerar um novo IP"
            fi
        else
           echo "Este IP já está em uso."
@@ -115,7 +112,7 @@ case $escolha in
 
     4) clear
        echo "---------------------------------------------"
-       echo "           LISTA DE IP EM USO"
+       echo "           LISTA DE IP CADASTRADOS"
        echo "--------------------------------------------"
        cat lista.txt
 
@@ -131,5 +128,5 @@ esac
 
 
 read -p "Deseja continuar com o cadastro: " resp
-clear
+
 done
